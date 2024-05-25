@@ -20,6 +20,7 @@ class RequestManager(AbstractRequestManager):
     def get_request(self, url: str) -> requests.Response:
         """
         Method for making get request
+
         :param url: target url for get request
         :return: requests.Response object
         """
@@ -35,4 +36,5 @@ class RequestManager(AbstractRequestManager):
             return resp
 
     def close(self):
+        """ Close current session """
         self.session.close()
