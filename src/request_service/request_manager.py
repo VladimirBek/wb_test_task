@@ -7,7 +7,6 @@ from src.request_service import AbstractRequestManager
 
 
 class RequestManager(AbstractRequestManager):
-
     """
     Class for making requests via requests python library
     """
@@ -18,11 +17,10 @@ class RequestManager(AbstractRequestManager):
         self.session.headers.update({'User-Agent': fake_useragent.UserAgent().random})
 
     def __enter__(self):
-        return self.session
+        return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
-
 
     def get_request(self, url: str) -> requests.Response:
         """
@@ -37,9 +35,10 @@ class RequestManager(AbstractRequestManager):
         except HTTPError as http_err:
             request_log.error(f'HTTP error occurred: {http_err}')
         except Exception as err:
-            request_log.error(f'Other error occurred: {err}')
+            request_log.error(f'Unexpected error occurred: {err}')
+            raise err
         else:
-            request_log.info(f'Successfully fetched {url} with status code: {resp.status_code}')
+            request_log.info(f'Successfully fetched response from {url} with status code: {resp.status_code}')
             return resp
 
     def close(self):
