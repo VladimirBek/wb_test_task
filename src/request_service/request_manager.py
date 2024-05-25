@@ -17,6 +17,13 @@ class RequestManager(AbstractRequestManager):
         self.session = requests.Session()
         self.session.headers.update({'User-Agent': fake_useragent.UserAgent().random})
 
+    def __enter__(self):
+        return self.session
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+
     def get_request(self, url: str) -> requests.Response:
         """
         Method for making get request
