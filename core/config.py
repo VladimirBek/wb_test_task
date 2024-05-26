@@ -12,11 +12,12 @@ class Settings(BaseSettings):
     """
     Settings class with constants and validators
     """
-    ROOT_URLS: list[dict[str, str]] = [
-        {
-            'https://www.wildberries.ru/catalog/':
+    ROOT_URLS: list[dict[str, tuple[str, str]]] = [  # list of sores with urls of catalog and links of each category
+        {"wildberries":
+            (
+                'https://www.wildberries.ru/catalog/',
                 'https://static-basket-01.wb.ru/vol0/data/main-menu-ru-ru-v3.json'
-        }
+            )}
     ]
     # logger config
     LOGGER_PATH: Path = BASE_DIR / 'logs'
@@ -51,7 +52,6 @@ class Settings(BaseSettings):
             return Path(python_path).resolve() / 'logs'
 
         return BASE_DIR / 'logs'
-
 
 
 settings = Settings()
