@@ -13,8 +13,8 @@ class RequestManager(AbstractRequestManager):
 
     def __init__(self) -> None:
 
-        self.session = requests.Session()
-        self.session.headers.update({'User-Agent': fake_useragent.UserAgent().random})
+        self.session = requests.Session()  # create session
+        self.session.headers.update({'User-Agent': fake_useragent.UserAgent().random})  # set user agent
 
     def __enter__(self):
         return self
