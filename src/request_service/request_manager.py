@@ -55,6 +55,7 @@ class RequestManager(AbstractRequestManager):
         resp = self.get_request((f"https://catalog.wb.ru/catalog/{shard}/"
                                  f"catalog?appType=1&{query}&curr=rub"
                                  f"&dest=-1257786&page={page_num}&sort=popular&spp=24"))
+        request_log.info(f'Successfully fetched response from {resp.url} with status code: {resp.status_code}')
         return resp
 
     def close(self):

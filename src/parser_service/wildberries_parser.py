@@ -26,6 +26,9 @@ class WildberriesParser(AbstractParser):
                 parser_log.error(f'Category name not found: {category}')
                 continue
             self.categories[category_name] = (category.get('shard'), category.get('query'))
+            parser_log.info(
+                f'got category attributes ({category_name}) from catalog: {category}, {category.get("shard")}, '
+                f'{category.get("query")}')
             if category.get('childs'):
                 self.parse_category_urls(category.get('childs'))
         return self.categories
@@ -48,3 +51,5 @@ class WildberriesParser(AbstractParser):
         path_to_results = os.path.join("results", category_name)
         with open(f'{os.path.join(path_to_results, str(page_num))}.json', 'w', encoding='utf-8') as f:
             json.dump(products_on_page, f, ensure_ascii=False)
+
+        parser_log.info(f'Category {category_name} (page: {page_num}) parsed')
