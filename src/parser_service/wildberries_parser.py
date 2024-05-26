@@ -13,7 +13,7 @@ class WildberriesParser(AbstractParser):
     categories = {}
 
     def __init__(self):
-        self.root_url = settings.ROOT_URLS['wildberries']
+        self.root_url = settings.ROOT_URLS['wildberries'][0]
 
     def parse_category_urls(self, category_urls_list: list) -> dict:
         """
@@ -30,7 +30,7 @@ class WildberriesParser(AbstractParser):
                 self.parse_category_urls(category.get('childs'))
         return self.categories
 
-    def parse_category(self, category_json: dict, category_name: str) -> None:
+    def parse_category(self, category_json: dict, category_name: str, page_num: int) -> None:
         """
         Method for parsing one wildberries category page and save it to JSON file
         category_page: JSON object with data of one category
@@ -44,10 +44,9 @@ class WildberriesParser(AbstractParser):
                 'link': f"{self.root_url}"
                         f"{item['id']}/detail.aspx"
             })
-        if os.path.isdir("results"):
-            with open(f'{os.path.join("results", category_name)}.json', 'w', encoding='utf-8') as f:
-                json.dump(products_on_page, f, ensure_ascii=False)
-        else:
-            os.mkdir("results")
-            with open(f'{os.path.join("results", category_name)}.json', 'w', encoding='utf-8') as f:
-                json.dump(products_on_page, f, ensure_ascii=False)
+        if not os.path.isdir(os.path.join("results", category_name)):
+            os.mkdir(os.path.join("results", category_name))
+        path_to_results = os.path.join("results", category_name)
+
+        with open(f'{os.path.join(path_to_results, str(page_num))}.json', 'w', encoding='utf-8') as f:
+            json.dump(products_on_page, f, ensure_ascii=False)

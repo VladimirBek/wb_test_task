@@ -17,7 +17,7 @@ class AbstractParser(abc.ABC):
 
 
     @abc.abstractmethod
-    def parse_category(self, category_page: dict, category_name: str) -> None:
+    def parse_category(self, category_page: dict, category_name: str, page_num: int) -> None:
         """
         Abstract method for parsing one category page and save it to JSON file
         """
