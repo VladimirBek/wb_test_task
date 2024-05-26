@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     # list of sores with urls of catalog and links of each category
     ROOT_URLS: dict[str, tuple[str, str]] = {
         "wildberries": (
-            'https://www.wildberries.ru',
+            'https://www.wildberries.ru/catalog',
             'https://static-basket-01.wb.ru/vol0/data/main-menu-ru-ru-v3.json')
     }
 

@@ -1,3 +1,5 @@
+import time
+
 import fake_useragent
 import requests
 from requests import HTTPError, Response
@@ -34,12 +36,26 @@ class RequestManager(AbstractRequestManager):
             resp.raise_for_status()
         except HTTPError as http_err:
             request_log.error(f'HTTP error occurred: {http_err}')
+            if http_err.response.status_code == 429:
+                time.sleep(10)
+                return self.get_request(url)
+            elif http_err.response.status_code == 500:
+                return self.get_request(url)
+
         except Exception as err:
             request_log.error(f'Unexpected error occurred: {err}')
             raise err
         else:
             request_log.info(f'Successfully fetched response from {url} with status code: {resp.status_code}')
             return resp
+
+    def get_products_data(self, shard, query, page_num: int) -> requests.Response:
+        """ Method for making get request and parsing data """
+
+        resp = self.get_request((f"https://catalog.wb.ru/catalog/{shard}/"
+                                 f"catalog?appType=1&{query}&curr=rub"
+                                 f"&dest=-1257786&page={page_num}&sort=popular&spp=24"))
+        return resp
 
     def close(self):
         """ Close current session """

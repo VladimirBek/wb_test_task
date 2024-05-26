@@ -41,12 +41,10 @@ class WildberriesParser(AbstractParser):
             products_on_page.append({
                 'title': item['name'],
                 'price': int(item['priceU'] / 100),
-                'link': f"{self.root_url}"
+                'link': f"{self.root_url}/"
                         f"{item['id']}/detail.aspx"
             })
-        if not os.path.isdir(os.path.join("results", category_name)):
-            os.mkdir(os.path.join("results", category_name))
-        path_to_results = os.path.join("results", category_name)
 
+        path_to_results = os.path.join("results", category_name)
         with open(f'{os.path.join(path_to_results, str(page_num))}.json', 'w', encoding='utf-8') as f:
             json.dump(products_on_page, f, ensure_ascii=False)
