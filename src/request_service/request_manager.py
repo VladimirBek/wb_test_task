@@ -49,13 +49,16 @@ class RequestManager(AbstractRequestManager):
             request_log.info(f'Successfully fetched response from {url} with status code: {resp.status_code}')
             return resp
 
-    def get_products_data(self, shard, query, page_num: int) -> requests.Response:
+    def get_products_data(self, shard, query, page_num: int) -> requests.Response | None:
         """ Method for making get request and parsing data """
+        url = (f"https://catalog.wb.ru/catalog/{shard}/"
+               f"catalog?appType=1&{query}&curr=rub"
+               f"&dest=-1257786&page={page_num}&sort=popular&spp=24")
 
-        resp = self.get_request((f"https://catalog.wb.ru/catalog/{shard}/"
-                                 f"catalog?appType=1&{query}&curr=rub"
-                                 f"&dest=-1257786&page={page_num}&sort=popular&spp=24"))
-        request_log.info(f'Successfully fetched response from {resp.url} with status code: {resp.status_code}')
+        resp = self.get_request(url)
+        if resp is None:
+            return None
+        request_log.info(f'Successfully fetched response from {url} with status code: {resp.status_code}')
         return resp
 
     def close(self):
