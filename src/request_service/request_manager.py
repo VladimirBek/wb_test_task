@@ -4,6 +4,7 @@ import fake_useragent
 import requests
 from requests import HTTPError, Response
 
+from core.config import settings
 from logs import request_log
 from src.request_service import AbstractRequestManager
 
@@ -16,6 +17,7 @@ class RequestManager(AbstractRequestManager):
     def __init__(self) -> None:
 
         self.session = requests.Session()  # create session
+        self.session.headers.update(settings.WILDBERRIES_HEADERS)  # set default Wildberries headers
         self.session.headers.update({'User-Agent': fake_useragent.UserAgent().random})  # set user agent
 
     def __enter__(self):

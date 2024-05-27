@@ -19,6 +19,13 @@ class Settings(BaseSettings):
             'https://static-basket-01.wb.ru/vol0/data/main-menu-ru-ru-v3.json')
     }
 
+    WILDBERRIES_HEADERS: dict = {"Accept": "*/*",
+                                 "Accept-Encoding": "gzip, deflate, br, zstd",
+                                 "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+                                 "Connection": "keep-alive",
+                                 "Dnt": "1",
+                                 "Host": "catalog.wb.ru",
+                                 }
 
     # logger config
     LOGGER_PATH: Path = BASE_DIR / 'logs'
@@ -26,7 +33,6 @@ class Settings(BaseSettings):
     LOGGER_COMPRESSION: str = "zip"
     LOGGER_DEBUG: bool = False
     LOGGER_LEVELS: list = []
-
 
     @field_validator("LOGGER_LEVELS")
     @classmethod
@@ -40,7 +46,6 @@ class Settings(BaseSettings):
             return ["INFO", "DEBUG", "WARNING", "ERROR", "CRITICAL"]
         else:
             return ["INFO", "WARNING", "ERROR", "CRITICAL"]
-
 
     @field_validator("LOGGER_PATH")
     @classmethod
