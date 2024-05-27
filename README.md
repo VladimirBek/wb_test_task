@@ -1,6 +1,6 @@
 ### **Тестовое задание для Python разработчика**
 
-Запуск парсера происходит через файл [main.py](https://github.com/VladimirBek/wb_test_task/blob/main/main.py) .
+Запуск парсера происходит через файл [main.py](https://github.com/VladimirBek/wb_test_task/blob/master/main.py) .
 
 В указанном файле также можно выставить количество воркеров (процессов) и количество страниц для парсинга каждой категории.
 
@@ -8,7 +8,7 @@
 
 Не рекомендуется выставлять больше 10 страниц, так как Wildberries начинает отдавать 429 (Too many requests).
  
-Для разработки использовался python3.11, иные зависимости указаны в файле [**requirements.txt**](https://github.com/VladimirBek/wb_test_task/blob/main/requirements.txt) .
+Для разработки использовался python3.11, иные зависимости указаны в файле [**requirements.txt**](https://github.com/VladimirBek/wb_test_task/blob/master/requirements.txt) .
 
 **Текст технического задания:**
 
