@@ -74,8 +74,9 @@ class Runner:
         with self.request_manager as session:  # create session
             with ProcessPoolExecutor(max_workers=workers) as process_executor:  # create process executor
                 processes = []  # blank list of processes
-                for cat_name, attributes in self.get_category_links().items():
+                for cat_name, attributes in self.get_category_links().items(): # iter over category links
                     if attributes[0] is None or attributes[1] is None:  # check for shard and query in attributes list
+                        # if category doesn't have shard or query - skip it
                         continue
                     # submit get_data_process for each category
                     get_data_process = process_executor.submit(self.get_products, cat_name=cat_name,
